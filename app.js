@@ -35,6 +35,14 @@ function tryConvert (temperature, convert) {
     return (Math.round(convert(value) * 100) / 100).toString()
 }
 
+function Column2({left, right}) {
+    return <div className= "row">
+        <div className="col-md-6">{left}</div>
+        <div className="col-md-6">{right}</div>
+
+    </div>
+}
+
 
 class TemperatureInput extends React.Component {
     constructor(props) {
@@ -92,8 +100,10 @@ class Calculator extends React.Component {
         const celsius = scale === 'c' ? temperature : tryConvert (temperature, toCelsius)
         const fahrenheit = scale === 'f' ? temperature : tryConvert (temperature, toFahrenheit)
         return <div>
-            <TemperatureInput scale="c" temperature={celsius} onTemperatureChange={this.handleCelsiusChange}/>
-            <TemperatureInput scale="f" temperature={fahrenheit} onTemperatureChange={this.handleFahrenheitChange}/>
+            <Column2 
+                left={<TemperatureInput scale="c" temperature={celsius} onTemperatureChange={this.handleCelsiusChange}/>}
+                right={<TemperatureInput scale="f" temperature={fahrenheit} onTemperatureChange={this.handleFahrenheitChange}/>}
+            />
             <BoilingVerdict celsius={celsius} />
         </div>
     }
